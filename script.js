@@ -2,17 +2,14 @@
 document.addEventListener('DOMContentLoaded', function() {
     // Counter functionality
     const counterElement = document.getElementById('parentCounter');
-    // Get counter from localStorage or start from 1047
     let counter = parseInt(localStorage.getItem('parentCounter')) || 1047;
     let isScrolledIntoView = false;
     let hasIncremented = false;
     
-    // Initialize counter display
     if (counterElement) {
         counterElement.textContent = counter.toLocaleString();
     }
 
-    // Function to create particle effect
     function createParticles() {
         const container = counterElement.parentElement;
         const particleCount = 10;
@@ -35,12 +32,10 @@ document.addEventListener('DOMContentLoaded', function() {
             
             container.appendChild(particle);
             
-            // Randomize particle position and animation
             const angle = Math.random() * Math.PI * 2;
             const distance = 30 + Math.random() * 40;
             const duration = 800 + Math.random() * 400;
             
-            // Animate particle
             const animation = particle.animate([
                 { 
                     transform: 'translate(-50%, -50%) scale(0)',
@@ -60,34 +55,25 @@ document.addEventListener('DOMContentLoaded', function() {
                 easing: 'cubic-bezier(0.4, 0, 0.2, 1)'
             });
             
-            // Remove particle after animation
             animation.onfinish = () => particle.remove();
         }
     }
 
-    // Function to update counter display with animation
     function updateCounter(value) {
         const oldValue = parseInt(counterElement.textContent.replace(/,/g, '')) || 0;
         const diff = value - oldValue;
-        const duration = 800; // ms
+        const duration = 800;
         const startTime = performance.now();
         
-        // Create particle effect
         createParticles();
         
-        // Animate counter
         const animate = (currentTime) => {
             const elapsed = currentTime - startTime;
             const progress = Math.min(elapsed / duration, 1);
-            
-            // Ease-out function
             const easeOut = 1 - Math.pow(1 - progress, 3);
-            
-            // Calculate current value with easing
             const currentValue = Math.floor(oldValue + diff * easeOut);
             counterElement.textContent = currentValue.toLocaleString();
             
-            // Add update class for CSS animation
             if (elapsed < duration) {
                 counterElement.classList.add('counter-updated');
                 requestAnimationFrame(animate);
@@ -102,30 +88,27 @@ document.addEventListener('DOMContentLoaded', function() {
         requestAnimationFrame(animate);
     }
 
-    // Auto-increment counter periodically
     const autoIncrement = setInterval(() => {
         if (isScrolledIntoView && !hasIncremented) {
-            const increment = Math.floor(Math.random() * 3) + 1; // Random increment between 1-3
+            const increment = Math.floor(Math.random() * 3) + 1;
             counter += increment;
             updateCounter(counter);
             
-            // Random interval between 5-15 seconds
             clearInterval(autoIncrement);
             setTimeout(() => {
                 setInterval(() => {
                     if (isScrolledIntoView && !hasIncremented) {
-                        const increment = Math.floor(Math.random() * 3) + 1;
-                        counter += increment;
+                        const inc = Math.floor(Math.random() * 3) + 1;
+                        counter += inc;
                         updateCounter(counter);
                     }
-                }, 10000 + Math.random() * 20000); // 10-30 seconds
-            }, 5000 + Math.random() * 10000); // 5-15 seconds initial delay
+                }, 10000 + Math.random() * 20000);
+            }, 5000 + Math.random() * 10000);
             
             hasIncremented = true;
         }
     }, 1000);
 
-    // Check if counter is in viewport
     function checkIfInView() {
         const rect = counterElement.getBoundingClientRect();
         isScrolledIntoView = (
@@ -136,19 +119,19 @@ document.addEventListener('DOMContentLoaded', function() {
         );
     }
 
-    // Check on scroll and resize
     window.addEventListener('scroll', checkIfInView);
     window.addEventListener('resize', checkIfInView);
-    checkIfInView(); // Initial check
+    checkIfInView();
 
     // Form validation and submission handling
     const registrationForm = document.getElementById('registrationForm');
     if (registrationForm) {
-        // Create success message element
         const successMessage = document.createElement('div');
         successMessage.className = 'form-success-message';
         successMessage.innerHTML = `
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" 
+                 viewBox="0 0 24 24" fill="none" stroke="currentColor" 
+                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
                 <polyline points="22 4 12 14.01 9 11.01"></polyline>
             </svg>
@@ -157,19 +140,16 @@ document.addEventListener('DOMContentLoaded', function() {
         successMessage.style.display = 'none';
         registrationForm.parentNode.insertBefore(successMessage, registrationForm.nextSibling);
 
-        // Function to validate form
         function validateForm(form) {
             let isValid = true;
             const requiredFields = form.querySelectorAll('[required]');
             
-            // Reset previous error states
             form.querySelectorAll('.form-group').forEach(group => {
                 group.classList.remove('has-error');
                 const errorEl = group.querySelector('.error');
                 if (errorEl) errorEl.textContent = '';
             });
             
-            // Check required fields
             requiredFields.forEach(field => {
                 if (!field.value.trim()) {
                     isValid = false;
@@ -186,7 +166,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             });
             
-            // Validate email format
             const emailField = form.querySelector('input[type="email"]');
             if (emailField && emailField.value) {
                 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -208,12 +187,11 @@ document.addEventListener('DOMContentLoaded', function() {
             return isValid;
         }
 
-        registrationForm.addEventListener('submit', function(e) {
+        // ✅ UPDATED SUBMIT HANDLER
+        registrationForm.addEventListener('submit', async function(e) {
             e.preventDefault();
             
-            // Validate form
             if (!validateForm(this)) {
-                // Scroll to first error
                 const firstError = this.querySelector('.has-error');
                 if (firstError) {
                     firstError.scrollIntoView({ 
@@ -224,32 +202,54 @@ document.addEventListener('DOMContentLoaded', function() {
                 return;
             }
             
-            // Form is valid, proceed with submission
-            // Increment counter on form submission and save to localStorage
-            const currentCounter = parseInt(localStorage.getItem('parentCounter')) || 1047;
-            counter = Math.max(currentCounter + 1, counter);
-            localStorage.setItem('parentCounter', counter);
-            updateCounter(counter);
-            
-            // Hide form and show success message
-            this.style.display = 'none';
-            successMessage.style.display = 'flex';
-            successMessage.classList.add('show');
-            
-            // Reset form
-            this.reset();
-            
-            // Reset after some time
-            setTimeout(() => {
-                successMessage.classList.remove('show');
-                setTimeout(() => {
-                    this.style.display = 'block';
-                    successMessage.style.display = 'none';
-                }, 500);
-            }, 5000);
+            const formData = {
+                firstName: this.firstName.value.trim(),
+                lastName: this.lastName.value.trim(),
+                username: this.username.value.trim(),
+                gender: this.gender.value,
+                email: this.email.value.trim(),
+                contactNumber: this.contactNumber.value.trim(),
+                consent: this.consent.checked,
+                termsAgree: this.termsAgree.checked
+            };
+
+            try {
+                const response = await fetch('/submit', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(formData)
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    const currentCounter = parseInt(localStorage.getItem('parentCounter')) || 1047;
+                    counter = Math.max(currentCounter + 1, counter);
+                    localStorage.setItem('parentCounter', counter);
+                    updateCounter(counter);
+
+                    this.style.display = 'none';
+                    successMessage.style.display = 'flex';
+                    successMessage.classList.add('show');
+
+                    this.reset();
+
+                    setTimeout(() => {
+                        successMessage.classList.remove('show');
+                        setTimeout(() => {
+                            this.style.display = 'block';
+                            successMessage.style.display = 'none';
+                        }, 500);
+                    }, 5000);
+                } else {
+                    alert(result.message || 'Form submission failed. Please try again.');
+                }
+            } catch (err) {
+                console.error('Error submitting form:', err);
+                alert('Something went wrong. Please try again later.');
+            }
         });
         
-        // Add input event listeners to clear error state when user starts typing
         registrationForm.querySelectorAll('input, select').forEach(input => {
             input.addEventListener('input', function() {
                 const formGroup = this.closest('.form-group');
@@ -271,11 +271,9 @@ document.addEventListener('DOMContentLoaded', function() {
         const isExpanding = !expandedContent.classList.contains('visible');
         expandedContent.classList.toggle('visible');
         
-        // Update button text and aria attributes
         if (isExpanding) {
             dropdownBtn.textContent = 'Read Less';
             dropdownBtn.setAttribute('aria-expanded', 'true');
-            // Smoothly scroll to show the expanded content
             expandedContent.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         } else {
             dropdownBtn.textContent = 'Read More';
@@ -284,24 +282,20 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     if (infoPanel && expandedContent && dropdownBtn) {
-        // Initialize aria attributes
         dropdownBtn.setAttribute('aria-expanded', 'false');
         dropdownBtn.setAttribute('aria-controls', 'expandedContent');
         
-        // Toggle on dropdown button click
         dropdownBtn.addEventListener('click', function(e) {
-            e.stopPropagation(); // Prevent triggering the panel click
+            e.stopPropagation();
             toggleExpandedContent();
         });
         
-        // Toggle on panel click (except when clicking on links or buttons)
         infoPanel.addEventListener('click', function(e) {
             if (e.target.tagName !== 'A' && e.target !== dropdownBtn) {
                 toggleExpandedContent();
             }
         });
         
-        // Add keyboard navigation
         dropdownBtn.addEventListener('keydown', function(e) {
             if (e.key === 'Enter' || e.key === ' ') {
                 e.preventDefault();
@@ -310,7 +304,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Add smooth scroll for anchor links
+    // Smooth scroll
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
