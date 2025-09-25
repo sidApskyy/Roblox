@@ -1,82 +1,105 @@
+// server.js (Postgres-backed)
+// Updated to remove Excel/XLSX usage and save registrations into PostgreSQL.
+// It also creates the `registrations` table if it does not exist.
+
+require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const path = require('path');
-const fs = require('fs');
-const XLSX = require('xlsx');
+const { Pool } = require('pg');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-const EXCEL_FILE = path.join(__dirname, 'register.xlsx');
+
+// Configure Postgres connection.
+// If you have DATABASE_URL (Render style), it will be used with SSL disabled certificate verification.
+// Otherwise it falls back to individual DB_* env vars for local development.
+let poolConfig = {};
+if (process.env.DATABASE_URL) {
+  poolConfig = {
+    connectionString: process.env.DATABASE_URL,
+    ssl: { rejectUnauthorized: false },
+  };
+} else {
+  poolConfig = {
+    user: process.env.DB_USER || 'postgres',
+    host: process.env.DB_HOST || 'localhost',
+    database: process.env.DB_NAME || 'registrationdb',
+    password: process.env.DB_PASS || '',
+    port: process.env.DB_PORT ? parseInt(process.env.DB_PORT) : 5432,
+  };
+}
+
+const pool = new Pool(poolConfig);
 
 // Middleware
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// Serve static frontend files from project root
+// Serve static frontend files
 app.use(express.static(__dirname));
 
-// Helper to append data to Excel
-function appendToExcel(rowObj) {
-  let workbook;
-  let worksheet;
+// Ensure table exists (simple migration)
+const ensureTable = async () => {
+  const createTableSQL = `
+  CREATE TABLE IF NOT EXISTS registrations (
+    id SERIAL PRIMARY KEY,
+    timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    firstname VARCHAR(100) NOT NULL,
+    lastname VARCHAR(100) NOT NULL,
+    username VARCHAR(100),
+    gender VARCHAR(20) NOT NULL,
+    email VARCHAR(150) NOT NULL,
+    contactnumber VARCHAR(50) NOT NULL,
+    consent BOOLEAN NOT NULL
+  );
+  `;
+  await pool.query(createTableSQL);
+};
 
-  if (fs.existsSync(EXCEL_FILE)) {
-    workbook = XLSX.readFile(EXCEL_FILE);
-    const sheetName = workbook.SheetNames[0] || 'Registrations';
-    worksheet = workbook.Sheets[sheetName];
-    if (!worksheet) {
-      worksheet = XLSX.utils.json_to_sheet([]);
-      XLSX.utils.book_append_sheet(workbook, worksheet, 'Registrations');
-    }
-  } else {
-    workbook = XLSX.utils.book_new();
-    worksheet = XLSX.utils.json_to_sheet([]);
-    XLSX.utils.book_append_sheet(workbook, worksheet, 'Registrations');
-  }
+ensureTable().catch((err) => {
+  console.error('Error ensuring registrations table:', err);
+});
 
-  const sheetName = workbook.SheetNames[0];
-  const data = XLSX.utils.sheet_to_json(workbook.Sheets[sheetName]);
-  data.push(rowObj);
-
-  const newWs = XLSX.utils.json_to_sheet(data, { skipHeader: false });
-  workbook.Sheets[sheetName] = newWs;
-
-  XLSX.writeFile(workbook, EXCEL_FILE);
-}
-
-// Routes
-app.post('/submit', (req, res) => {
+// Route: handle form submission
+app.post('/submit', async (req, res) => {
   try {
     const { firstName, lastName, username = '', gender, email, contactNumber, consent } = req.body || {};
 
-    // Basic validation on backend as well
     if (!firstName || !lastName || !gender || !email || !contactNumber || consent !== true) {
       return res.status(400).json({ success: false, message: 'Missing required fields or consent not given.' });
     }
 
-    const row = {
-      Timestamp: new Date().toISOString(),
-      FirstName: String(firstName).trim(),
-      LastName: String(lastName).trim(),
-      Username: String(username || '').trim(),
-      Gender: String(gender).trim(),
-      Email: String(email).trim(),
-      ContactNumber: String(contactNumber).trim(),
-      Consent: !!consent
-    };
+    const insertSQL = `
+      INSERT INTO registrations (firstname, lastname, username, gender, email, contactnumber, consent)
+      VALUES ($1, $2, $3, $4, $5, $6, $7)
+      RETURNING id;
+    `;
+    const values = [String(firstName).trim(), String(lastName).trim(), String(username).trim(), String(gender).trim(), String(email).trim(), String(contactNumber).trim(), !!consent];
 
-    appendToExcel(row);
+    const result = await pool.query(insertSQL, values);
 
-    return res.json({ success: true });
+    return res.json({ success: true, message: 'Data stored in database!', id: result.rows[0].id });
   } catch (err) {
-    console.error('Error handling /submit:', err);
+    console.error('DB insert error:', err);
     return res.status(500).json({ success: false, message: 'Internal server error' });
   }
 });
 
-// Fallback to index.html for root
+// Route: fetch all submissions (for admin use)
+app.get('/submissions', async (req, res) => {
+  try {
+    const result = await pool.query('SELECT * FROM registrations ORDER BY id DESC');
+    res.json(result.rows);
+  } catch (err) {
+    console.error('Error fetching submissions:', err);
+    res.status(500).json({ success: false, message: 'Internal server error' });
+  }
+});
+
+// Fallback to index.html
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'index.html'));
 });
