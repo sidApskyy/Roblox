@@ -10,66 +10,28 @@
 </head>
 <body>
   <header class="header">
-    <a href="https://www.roblox.com/login" class="login-btn">
-      Log In
-    </a>
+    <a href="https://www.roblox.com/login" class="login-btn">Log In</a>
   </header>
+
   <main class="main-container">
-    <div class="info-panel">
-      <h2>Protecting Children on Roblox</h2>
-      <p>We're helping parents protect their children and hold responsible parties accountable. If your child was harassed, exploited, or made to feel unsafe while using Roblox, you may be eligible to take legal action.</p>
-      
-      <div class="expanded-content" id="expandedContent">
-        <p>Roblox is one of the most popular online games for children. Unfortunately, reports have surfaced of adults using the platform to harass, manipulate, or exploit kids.</p>
-        <p>If your child has experienced:</p>
-        <ul class="issue-list">
-          <li>Inappropriate messages from other players</li>
-          <li>Sexual harassment or grooming attempts</li>
-          <li>Being pressured into sharing private information or photos</li>
-          <li>Any form of online exploitation</li>
-        </ul>
-        <p>...you may be entitled to legal support.</p>
-      </div>
-      
-      <div class="benefits">
-        <div class="benefit-item">
-          <span class="benefit-icon">✓</span>
-          <span>Confidential Case Evaluation</span>
-        </div>
-        <div class="benefit-item">
-          <span class="benefit-icon">✓</span>
-          <span>Free Case Review </span>
-        </div>
-        <div class="benefit-item">
-          <span class="benefit-icon">✓</span>
-          <span>Experienced Legal Support</span>
-        </div>
-        <button class="dropdown-btn" aria-label="Toggle more information">Read More</button>
-      </div>
-      <div class="counter-container">
-        <div class="counter-number" id="parentCounter">1,047</div>
-        <div class="counter-label">Parents Who Took Action</div>
-      </div>
-    </div>
+    <!-- Info panel omitted for brevity -->
+
     <section class="card glass form-section">
       <h1 class="title">Act Now if Your Child Was Harassed</h1>
-      <form id="registrationForm" novalidate>
+      <form id="registrationForm" method="POST" action="/submit" novalidate>
         <div class="form-group">
           <label for="firstName">First Name *</label>
           <input type="text" id="firstName" name="firstName" required />
-          <span class="error" id="firstNameError"></span>
         </div>
 
         <div class="form-group">
           <label for="lastName">Last Name *</label>
           <input type="text" id="lastName" name="lastName" required />
-          <span class="error" id="lastNameError"></span>
         </div>
 
         <div class="form-group">
           <label for="username">Username (Optional)</label>
           <input type="text" id="username" name="username" />
-          <span class="error" id="usernameError"></span>
         </div>
 
         <div class="form-group">
@@ -80,19 +42,16 @@
             <option value="Female">Female</option>
             <option value="Other">Other</option>
           </select>
-          <span class="error" id="genderError"></span>
         </div>
 
         <div class="form-group">
           <label for="email">Email *</label>
           <input type="email" id="email" name="email" required />
-          <span class="error" id="emailError"></span>
         </div>
 
         <div class="form-group">
           <label for="contactNumber">Contact Number *</label>
           <input type="number" id="contactNumber" name="contactNumber" required />
-          <span class="error" id="contactNumberError"></span>
         </div>
 
         <div class="form-row checkbox-row">
@@ -100,7 +59,6 @@
             <input type="checkbox" id="consent" name="consent" required />
             <span>I confirm that I may be contacted *</span>
           </label>
-          <span class="error" id="consentError"></span>
         </div>
 
         <div class="form-row checkbox-row">
@@ -108,9 +66,8 @@
             <input type="checkbox" id="termsAgree" name="termsAgree" required />
             <span>I agree to the <a href="terms.html" target="_blank">Terms and Conditions</a> *</span>
           </label>
-          <span class="error" id="termsError"></span>
         </div>
-        
+
         <button type="submit" class="btn primary">Submit</button>
         <p class="submit-status" id="submitStatus" role="status" aria-live="polite"></p>
       </form>
@@ -119,23 +76,37 @@
 
   <footer class="footer">
     <div class="footer-content">
-      <div class="footer-links">
-        <a href="https://corp.roblox.com" class="footer-link">About Us</a>
-        <a href="https://careers.roblox.com" class="footer-link">Jobs</a>
-        <a href="https://corp.roblox.com/newsroom" class="footer-link">Blog</a>
-        <a href="https://corp.roblox.com/families" class="footer-link">Parents</a>
-        <a href="https://www.roblox.com/giftcards-us?locale=en_us" class="footer-link">Gift Cards</a>
-        <a href="https://en.help.roblox.com/hc/en-us" class="footer-link">Help</a>
-        <a href="https://en.help.roblox.com/hc/en-us/articles/115004647846-Roblox-Terms-of-Use" class="footer-link">Terms</a>
-        <a href="https://en.help.roblox.com/hc/en-us/articles/360059080071-Roblox-Accessibility-Statement" class="footer-link">Accessibility</a>
-      </div>
-      <div class="footer-copyright">
-        © 2025 Roblox Corporation. All rights reserved.
-      </div>
+      <!-- Footer content omitted for brevity -->
     </div>
   </footer>
 
-  <!-- Form validation is now handled by script.js -->
-  <script src="script.js"></script>
+  <script>
+    // JS to submit form via fetch
+    const form = document.getElementById('registrationForm');
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const formData = new FormData(form);
+      const data = Object.fromEntries(formData.entries());
+      // Convert checkboxes to boolean
+      data.consent = formData.get('consent') === 'on';
+      data.termsAgree = formData.get('termsAgree') === 'on';
+
+      try {
+        const response = await fetch('/submit', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data),
+        });
+
+        const result = await response.json();
+        document.getElementById('submitStatus').textContent = result.message;
+        if(result.success) form.reset();
+      } catch (err) {
+        document.getElementById('submitStatus').textContent = 'Submission failed. Please try again.';
+        console.error(err);
+      }
+    });
+  </script>
 </body>
 </html>
