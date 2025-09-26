@@ -49,7 +49,10 @@ const ensureTable = async () => {
   `;
   await pool.query(createTableSQL);
 };
-ensureTable().catch(err => console.error('Error ensuring table:', err));
+ensureTable().catch(err => {
+  console.error('Error ensuring table:', err);
+  process.exit(1); // Exit if DB setup fails
+});
 
 // Form submission route
 app.post('/submit', async (req, res) => {
@@ -75,6 +78,9 @@ app.post('/submit', async (req, res) => {
       String(contactNumber).trim(),
       consentBool
     ];
+
+    // Log submission for Render logs
+    console.log('New submission received:', values);
 
     const result = await pool.query(insertSQL, values);
     return res.json({ success: true, message: 'Form submitted successfully!', id: result.rows[0].id });
