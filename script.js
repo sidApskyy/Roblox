@@ -2,7 +2,9 @@
 document.addEventListener('DOMContentLoaded', function() {
     // Counter functionality
     const counterElement = document.getElementById('parentCounter');
-    let counter = parseInt(localStorage.getItem('parentCounter')) || 1047;
+    // Initialize counter and last update time
+    let counter = parseInt(localStorage.getItem('parentCounter')) || 1075;
+    let lastUpdateTime = parseInt(localStorage.getItem('lastUpdateTime')) || Date.now();
     let isScrolledIntoView = false;
     let hasIncremented = false;
     
@@ -88,6 +90,32 @@ document.addEventListener('DOMContentLoaded', function() {
         requestAnimationFrame(animate);
     }
 
+    // Function to update counter by 10 every hour
+    function updateCounterByHour() {
+        const now = Date.now();
+        const hoursPassed = Math.floor((now - lastUpdateTime) / (60 * 60 * 1000));
+        
+        if (hoursPassed > 0) {
+            const increment = hoursPassed * 10; // 10 per hour
+            counter += increment;
+            lastUpdateTime = now;
+            localStorage.setItem('parentCounter', counter);
+            localStorage.setItem('lastUpdateTime', lastUpdateTime);
+            
+            if (counterElement) {
+                counterElement.textContent = counter.toLocaleString();
+                createParticles();
+            }
+        }
+        
+        // Schedule next check in 1 hour
+        setTimeout(updateCounterByHour, 60 * 60 * 1000);
+    }
+    
+    // Start the hourly counter update
+    updateCounterByHour();
+    
+    // Auto-increment counter periodically when in view
     const autoIncrement = setInterval(() => {
         if (isScrolledIntoView && !hasIncremented) {
             const increment = Math.floor(Math.random() * 3) + 1;
