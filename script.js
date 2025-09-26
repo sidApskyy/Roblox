@@ -332,8 +332,8 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Smooth scroll
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+   // Smooth scroll for anchor links (only those that start with # and don't contain .html)
+    document.querySelectorAll('a[href^="#"]:not([href*=".html"])').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
             const targetId = this.getAttribute('href');
