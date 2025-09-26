@@ -44,7 +44,8 @@ const ensureTable = async () => {
       gender VARCHAR(20) NOT NULL,
       email VARCHAR(150) NOT NULL,
       contactnumber VARCHAR(50) NOT NULL,
-      consent BOOLEAN NOT NULL
+      consent BOOLEAN NOT NULL,
+      description TEXT   -- 🆕 Added description column
     );
   `;
   await pool.query(createTableSQL);
@@ -57,7 +58,7 @@ ensureTable().catch(err => {
 // Form submission route
 app.post('/submit', async (req, res) => {
   try {
-    const { firstName, lastName, username = '', gender, email, contactNumber, consent } = req.body || {};
+    const { firstName, lastName, username = '', gender, email, contactNumber, consent, description = '' } = req.body || {};
     const consentBool = consent === true || consent === 'true';
 
     if (!firstName || !lastName || !gender || !email || !contactNumber || !consentBool) {
@@ -65,8 +66,8 @@ app.post('/submit', async (req, res) => {
     }
 
     const insertSQL = `
-      INSERT INTO registrations (firstname, lastname, username, gender, email, contactnumber, consent)
-      VALUES ($1, $2, $3, $4, $5, $6, $7)
+      INSERT INTO registrations (firstname, lastname, username, gender, email, contactnumber, consent, description) 
+      VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
       RETURNING id;
     `;
     const values = [
@@ -76,7 +77,8 @@ app.post('/submit', async (req, res) => {
       String(gender).trim(),
       String(email).trim(),
       String(contactNumber).trim(),
-      consentBool
+      consentBool,
+      String(description).trim()   // 🆕 Store description
     ];
 
     // Log submission for Render logs
