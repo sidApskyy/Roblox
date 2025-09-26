@@ -7,6 +7,38 @@
   <link rel="icon" type="image/png" href="Roblox favicon.png" />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
+    .title-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+    
+    .close-button {
+      background: #ff4444;
+      border: none;
+      border-radius: 50%;
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      padding: 0;
+      color: white;
+    }
+    
+    .close-button:hover {
+      background: #ff0000;
+      transform: scale(1.1);
+    }
+    
+    .close-button:focus {
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(255, 68, 68, 0.4);
+    }
+    
     * {
       margin: 0;
       padding: 0;
@@ -118,7 +150,15 @@
 </head>
 <body>
   <div class="terms-container">
-    <h1>Terms and Conditions</h1>
+    <div class="title-container">
+      <h1>Terms and Conditions</h1>
+      <button id="closeButton" class="close-button" aria-label="Close">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+    </div>
     <div class="terms-content">
       <h2>Terms & Conditions</h2>
       <p>By submitting your information through this website, you agree to the following:</p>
@@ -184,5 +224,25 @@
       <a href="index.html" class="back-button">Back to Form</a>
     </div>
   </div>
+  <script>
+    // Handle browser back button
+    window.onpopstate = function(event) {
+      window.location.href = 'index.html';
+    };
+    
+    // Add a new history entry when the page loads
+    history.pushState(null, null, window.location.href);
+    
+    // Handle the back button click
+    document.querySelector('.back-button').addEventListener('click', function(e) {
+      e.preventDefault();
+      window.location.href = 'index.html';
+    });
+    
+    // Handle the close button click
+    document.getElementById('closeButton').addEventListener('click', function() {
+      window.location.href = 'index.html';
+    });
+  </script>
 </body>
 </html>
