@@ -217,11 +217,37 @@
       <p>⚠️ We understand this is a deeply sensitive issue. Your information is 100% confidential and will only be shared with trusted attorneys who specialize in child protection cases.</p>
       
       <h3 style="margin-top: 30px;"><strong>You are not alone. Support and justice are possible — take the first step today.</strong></h3>
+        © 2025 Roblox Corporation. All rights reserved.
       </div>
     </div>
   </footer>
 
-  <!-- Form validation is now handled by script.js -->
-  <script src="script.js"></script>
+  <script>
+    // Handle the close button click
+    document.addEventListener('DOMContentLoaded', function() {
+      const closeButton = document.getElementById('closeButton');
+      
+      if (closeButton) {
+        closeButton.addEventListener('click', function() {
+          // Go back to the previous page (form) while preserving form data
+          if (document.referrer && document.referrer.includes(window.location.hostname)) {
+            window.location.href = document.referrer;
+          } else {
+            // Fallback to index.html if referrer is not available
+            window.location.href = 'index.html';
+          }
+        });
+      }
+      
+      // Handle browser back button
+      window.onpopstate = function() {
+        // This will be triggered when the user clicks the browser's back button
+        window.location.href = 'index.html';
+      };
+      
+      // Add a new history entry when the page loads
+      history.pushState(null, null, window.location.href);
+    });
+  </script>
 </body>
 </html>
