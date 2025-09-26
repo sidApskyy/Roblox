@@ -1,38 +1,5 @@
 // Form submission handling
 document.addEventListener('DOMContentLoaded', function() {
-    // Form state persistence
-    const formElement = document.getElementById('registrationForm');
-    
-    // Save form data when navigating away
-    if (formElement) {
-        window.addEventListener('beforeunload', function() {
-            const formData = new FormData(formElement);
-            const formObject = {};
-            formData.forEach((value, key) => {
-                formObject[key] = value;
-            });
-            sessionStorage.setItem('formState', JSON.stringify(formObject));
-        });
-        
-        // Restore form data when page loads
-        const savedForm = sessionStorage.getItem('formState');
-        if (savedForm) {
-            const formObject = JSON.parse(savedForm);
-            Object.keys(formObject).forEach(key => {
-                const element = formElement.elements[key];
-                if (element) {
-                    if (element.type === 'checkbox') {
-                        element.checked = formObject[key] === 'on' || formObject[key] === true;
-                    } else {
-                        element.value = formObject[key];
-                    }
-                }
-            });
-            
-            // Clear the saved state after restoring
-            sessionStorage.removeItem('formState');
-        }
-    }
     // Counter functionality
     const counterElement = document.getElementById('parentCounter');
     // Initialize counter and last update time
@@ -251,8 +218,6 @@ document.addEventListener('DOMContentLoaded', function() {
         // ✅ UPDATED SUBMIT HANDLER
         registrationForm.addEventListener('submit', async function(e) {
             e.preventDefault();
-            // Clear the form state on successful submission
-            sessionStorage.removeItem('formState');
             
             if (!validateForm(this)) {
                 const firstError = this.querySelector('.has-error');
