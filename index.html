@@ -95,6 +95,25 @@
           <span class="error" id="contactNumberError"></span>
         </div>
 
+        <div class="form-group">
+          <label for="description" class="description-label">Description</label>
+          <div class="description-container">
+            <div class="description-wrapper">
+              <textarea 
+                id="description" 
+                name="description" 
+                class="description-textarea"
+                onfocus="this.nextElementSibling.style.display='none'"
+                onblur="if(!this.value) this.nextElementSibling.style.display='block'">
+              </textarea>
+              <div class="description-placeholder">
+              Every case is unique.The description helps the safety team understand what was happen and how serious it is.
+              </div>
+            </div>
+          </div>
+          <span class="error" id="descriptionError"></span>
+        </div>
+
         <div class="form-row checkbox-row">
           <label class="checkbox">
             <input type="checkbox" id="consent" name="consent" required />
