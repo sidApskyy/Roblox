@@ -6,9 +6,8 @@ const path = require('path');
 const { Pool } = require('pg');
 
 const app = express();
-const PORT = process.env.PORT || 3000;
 
-// Postgres connection
+// Postgres connection pool
 let poolConfig = {};
 if (process.env.DATABASE_URL) {
   poolConfig = {
@@ -32,28 +31,29 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(__dirname));
 
-// Ensure table exists
-const ensureTable = async () => {
-  const createTableSQL = `
-    CREATE TABLE IF NOT EXISTS registrations (
-      id SERIAL PRIMARY KEY,
-      timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-      firstname VARCHAR(100) NOT NULL,
-      lastname VARCHAR(100) NOT NULL,
-      username VARCHAR(100),
-      gender VARCHAR(20) NOT NULL,
-      email VARCHAR(150) NOT NULL,
-      contactnumber VARCHAR(50) NOT NULL,
-      consent BOOLEAN NOT NULL,
-      description TEXT   -- 🆕 Added description column
-    );
-  `;
-  await pool.query(createTableSQL);
-};
-ensureTable().catch(err => {
-  console.error('Error ensuring table:', err);
-  process.exit(1); // Exit if DB setup fails
-});
+// Ensure table exists (no process.exit)
+(async () => {
+  try {
+    const createTableSQL = `
+      CREATE TABLE IF NOT EXISTS registrations (
+        id SERIAL PRIMARY KEY,
+        timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        firstname VARCHAR(100) NOT NULL,
+        lastname VARCHAR(100) NOT NULL,
+        username VARCHAR(100),
+        gender VARCHAR(20) NOT NULL,
+        email VARCHAR(150) NOT NULL,
+        contactnumber VARCHAR(50) NOT NULL,
+        consent BOOLEAN NOT NULL,
+        description TEXT
+      );
+    `;
+    await pool.query(createTableSQL);
+    console.log('✅ Table ensured');
+  } catch (err) {
+    console.error('Error ensuring table:', err);
+  }
+})();
 
 // Form submission route
 app.post('/submit', async (req, res) => {
@@ -78,11 +78,8 @@ app.post('/submit', async (req, res) => {
       String(email).trim(),
       String(contactNumber).trim(),
       consentBool,
-      String(description).trim()   // 🆕 Store description
+      String(description).trim()
     ];
-
-    // Log submission for Render logs
-    console.log('New submission received:', values);
 
     const result = await pool.query(insertSQL, values);
     return res.json({ success: true, message: 'Form submitted successfully!', id: result.rows[0].id });
@@ -118,6 +115,5 @@ app.get('/test-db', async (req, res) => {
   }
 });
 
-app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
-});
+// ✅ Important for Vercel: export app instead of listening
+module.exports = app;
