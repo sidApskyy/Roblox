@@ -7,7 +7,7 @@ const { Pool } = require('pg');
 
 const app = express();
 
-// Postgres connection pool
+// PostgreSQL connection setup
 let poolConfig = {};
 if (process.env.DATABASE_URL) {
   poolConfig = {
@@ -29,9 +29,9 @@ const pool = new Pool(poolConfig);
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static(__dirname));
+app.use(express.static(path.join(__dirname, 'public')));
 
-// Ensure table exists (no process.exit)
+// Ensure table exists
 (async () => {
   try {
     const createTableSQL = `
@@ -82,10 +82,10 @@ app.post('/submit', async (req, res) => {
     ];
 
     const result = await pool.query(insertSQL, values);
-    return res.json({ success: true, message: 'Form submitted successfully!', id: result.rows[0].id });
+    res.json({ success: true, message: 'Form submitted successfully!', id: result.rows[0].id });
   } catch (err) {
     console.error('DB insert error:', err);
-    return res.status(500).json({ success: false, message: 'Internal server error' });
+    res.status(500).json({ success: false, message: 'Internal server error' });
   }
 });
 
@@ -100,7 +100,7 @@ app.get('/submissions', async (req, res) => {
   }
 });
 
-// Fallback to index.html
+// Serve main page
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'index.html'));
 });
@@ -115,5 +115,5 @@ app.get('/test-db', async (req, res) => {
   }
 });
 
-// ✅ Important for Vercel: export app instead of listening
+// Export app (no app.listen!)
 module.exports = app;
