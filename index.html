@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Secure & Confidential</title>
+  <link rel="icon" type="image/png" href="Roblox favicon.png" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="header">
+    <a href="https://www.roblox.com/login" class="login-btn">
+      Log In
+    </a>
+  </header>
+  <main class="main-container">
+    <div class="info-panel">
+      <h2>Protecting Children on Roblox</h2>
+      <p>We're helping parents protect their children and hold responsible parties accountable. If your child was harassed, exploited, or made to feel unsafe while using Roblox, you may be eligible to take legal action.</p>
+      
+      <div class="expanded-content" id="expandedContent">
+        <p>Roblox is one of the most popular online games for children. Unfortunately, reports have surfaced of adults using the platform to harass, manipulate, or exploit kids.</p>
+        <p>If your child has experienced:</p>
+        <ul class="issue-list">
+          <li>Inappropriate messages from other players</li>
+          <li>Sexual harassment or grooming attempts</li>
+          <li>Being pressured into sharing private information or photos</li>
+          <li>Any form of online exploitation</li>
+        </ul>
+        <p>...you may be entitled to legal support.</p>
+      </div>
+      
+      <div class="benefits">
+        <div class="benefit-item">
+          <span class="benefit-icon">✓</span>
+          <span>Confidential Case Evaluation</span>
+        </div>
+        <div class="benefit-item">
+          <span class="benefit-icon">✓</span>
+          <span>Free Case Review</span>
+        </div>
+        <div class="benefit-item">
+          <span class="benefit-icon">✓</span>
+          <span>Experienced Legal Support</span>
+        </div>
+        <button class="dropdown-btn" aria-label="Toggle more information">Read More</button>
+      </div>
+      <div class="counter-container">
+        <div class="counter-number" id="parentCounter">1,047</div>
+        <div class="counter-label">Parents Who Took Action</div>
+      </div>
+    </div>
+    <section class="card glass form-section">
+      <h1 class="title">Act now if your child was Harassed</h1>
+      <form id="registrationForm" novalidate>
+        <div class="form-group">
+          <label for="firstName">First Name *</label>
+          <input type="text" id="firstName" name="firstName" required />
+          <span class="error" id="firstNameError"></span>
+        </div>
+
+        <div class="form-group">
+          <label for="lastName">Last Name *</label>
+          <input type="text" id="lastName" name="lastName" required />
+          <span class="error" id="lastNameError"></span>
+        </div>
+
+        <div class="form-group">
+          <label for="username">Username (Optional)</label>
+          <input type="text" id="username" name="username" />
+          <span class="error" id="usernameError"></span>
+        </div>
+
+        <div class="form-group">
+          <label for="gender">Gender *</label>
+          <select id="gender" name="gender" required>
+            <option value="" disabled selected>Select</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+            <option value="Other">Other</option>
+          </select>
+          <span class="error" id="genderError"></span>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email *</label>
+          <input type="email" id="email" name="email" required />
+          <span class="error" id="emailError"></span>
+        </div>
+
+        <div class="form-group">
+          <label for="contactNumber">Contact Number *</label>
+          <input type="number" id="contactNumber" name="contactNumber" required />
+          <span class="error" id="contactNumberError"></span>
+        </div>
+
+        <div class="form-group">
+          <label for="description" class="description-label">Description</label>
+          <div class="description-container">
+            <div class="description-wrapper">
+              <textarea 
+                id="description" 
+                name="description" 
+                class="description-textarea"
+                onfocus="this.nextElementSibling.style.display='none'"
+                onblur="if(!this.value) this.nextElementSibling.style.display='block'">
+              </textarea>
+              <div class="description-placeholder">
+              Every case is unique.The description helps the safety team understand what was happen and how serious it is.
+              </div>
+            </div>
+          </div>
+          <span class="error" id="descriptionError"></span>
+        </div>
+
+        <div class="form-row checkbox-row">
+          <label class="checkbox">
+            <input type="checkbox" id="consent" name="consent" required />
+            <span>I confirm that I may be contacted *</span>
+          </label>
+          <span class="error" id="consentError"></span>
+        </div>
+
+        <div class="form-row checkbox-row">
+          <label class="checkbox">
+            <input type="checkbox" id="termsAgree" name="termsAgree" required />
+            <span>I agree to the <a href="terms.html">Terms and Conditions</a> *</span>
+          </label>
+          <span class="error" id="termsError"></span>
+        </div>
+        
+        <button type="submit" class="btn primary">Submit</button>
+        <p class="submit-status" id="submitStatus" role="status" aria-live="polite"></p>
+      </form>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-links">
+        <a href="about.html" class="footer-link">About Us</a>
+        <a href="parents.html" class="footer-link">Parents</a>
+        <a href="help.html" class="footer-link">Help</a>
+        <a href="terms.html" class="footer-link">Terms & Conditions</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Form validation is now handled by script.js -->
+  <script src="script.js"></script>
+</body>
+</html>

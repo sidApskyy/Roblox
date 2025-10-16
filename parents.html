@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Parent Resources | Roblox Safety</title>
+  <link rel="icon" type="image/png" href="Roblox favicon.png" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .about-content {
+      max-width: 1000px;
+      margin: 80px auto;
+      padding: 40px;
+      background: rgba(0, 0, 0, 0.7);
+      border-radius: var(--radius-lg);
+      backdrop-filter: blur(10px);
+      box-shadow: var(--shadow);
+    }
+    
+    .about-content h1 {
+      font-size: 2.5rem;
+      color: var(--primary);
+      margin-bottom: 30px;
+      text-align: center;
+    }
+    
+    .about-section {
+      margin-bottom: 40px;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    
+    .about-section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    .about-section h2 {
+      color: #fff;
+      font-size: 1.8rem;
+      margin-bottom: 15px;
+      border-bottom: 2px solid var(--primary);
+      padding-bottom: 10px;
+      display: inline-block;
+    }
+    
+    .about-section p, .about-section li {
+      color: var(--muted);
+      line-height: 1.8;
+      margin-bottom: 20px;
+      font-size: 1.1rem;
+    }
+    
+    .about-section ul {
+      margin-left: 20px;
+      margin-bottom: 20px;
+    }
+    
+    .about-section a {
+      color: var(--primary);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+    
+    .about-section a:hover {
+      color: var(--primary-hover);
+      text-decoration: underline;
+    }
+    
+    .age-group {
+      display: flex;
+      gap: 2rem;
+      margin: 2rem 0;
+      flex-wrap: wrap;
+    }
+    
+    .age-card {
+      flex: 1;
+      min-width: 300px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 10px;
+      padding: 1.5rem;
+      border-left: 4px solid var(--primary);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .age-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    }
+    
+    .age-card h4 {
+      margin-top: 0;
+      color: var(--primary);
+      font-size: 1.3rem;
+    }
+    
+    .back-home {
+      display: inline-block;
+      margin-top: 30px;
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+    
+    .back-home:hover {
+      color: var(--primary-hover);
+      text-decoration: underline;
+    }
+    
+    @media (max-width: 768px) {
+      .about-content {
+        margin: 60px 20px;
+        padding: 25px;
+      }
+      
+      .age-group {
+        flex-direction: column;
+      }
+      
+      .age-card {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <a href="index.html" class="login-btn">
+      Back to Home
+    </a>
+  </header>
+  
+  <div class="about-content">
+    <h1>Parent Resources & Safety Guide</h1>
+    
+    <div class="about-section" id="safety-features">
+      <h2>Safety Features for All Users</h2>
+      <p>At Roblox, we prioritize safety and civility across our platform. Here's how we protect our community:</p>
+      
+      <div class="age-group">
+        <div class="age-card">
+          <h4>For Users Under 13</h4>
+          <ul>
+            <li>Restricted access to certain features like voice chat</li>
+            <li>Additional content restrictions by default</li>
+            <li>Parental controls for managing account settings</li>
+            <li>Moderated communication systems</li>
+          </ul>
+        </div>
+        
+        <div class="age-card">
+          <h4>For Users 13+</h4>
+          <ul>
+            <li>Age-appropriate content access</li>
+            <li>Optional age verification</li>
+            <li>Customizable privacy settings</li>
+            <li>Well-being tools and screen time management</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    
+    <div class="about-section" id="parental-controls">
+      <h2>Parental Controls</h2>
+      <p>We provide comprehensive tools to help you manage your child's experience:</p>
+      <ul>
+        <li><strong>Account Linking:</strong> Connect your account to monitor and manage your child's settings</li>
+        <li><strong>Privacy Settings:</strong> Control who can interact with your child</li>
+        <li><strong>Spending Limits:</strong> Set monthly spending caps on in-game purchases</li>
+        <li><strong>Activity Reports:</strong> Receive regular updates on your child's account activity</li>
+      </ul>
+    </div>
+    
+    <div class="about-section" id="resources">
+      <h2>Resources for Parents</h2>
+      <p>We've created guides and resources to help you navigate Roblox with your family:</p>
+      <ul>
+        <li><a href="#">Parent & Caregiver Guide to Roblox</a> - A comprehensive overview of safety features</li>
+        <li><a href="#">Digital Well-being Resources</a> - Tips for healthy gaming habits</li>
+        <li><a href="#">Safety Education</a> - Teaching kids about online safety</li>
+      </ul>
+    </div>
+    
+    <div class="about-section" id="help">
+      <h2>Need Help?</h2>
+      <p>Our support team is here to assist with any questions or concerns:</p>
+      <ul>
+        <li><a href="help.html" target="_blank">Help Center</a> - Find answers to common questions</li>
+        <li><a href="index.html">Report a Concern</a> - Let us know about any safety issues</li>
+        <li><a href="https://www.roblox.com/support" target="_blank">Contact Support</a> - Get direct assistance from our team</li>
+      </ul>
+    </div>
+    
+    <a href="index.html" class="back-home">← Back to Homepage</a>
+  </div>
+  
+   <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-links">
+        <a href="about.html" class="footer-link">About Us</a>
+        <a href="parents.html" class="footer-link">Parents</a>
+        <a href="help.html" class="footer-link">Help</a>
+        <a href="terms.html" class="footer-link">Terms & Conditions</a>
+      </div>
+    </div>
+  </footer>
+  
+  <script>
+    // Add smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+          behavior: 'smooth'
+        });
+      });
+    });
+    
+    // Add animation on scroll
+    const observerOptions = {
+      threshold: 0.1
+    };
+    
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, observerOptions);
+    
+    // Animate sections on scroll
+    document.querySelectorAll('.about-section').forEach((section, index) => {
+      section.style.transition = `opacity 0.6s ease ${index * 0.1}s, transform 0.6s ease ${index * 0.1}s`;
+      observer.observe(section);
+    });
+  </script>
+</body>
+</html>

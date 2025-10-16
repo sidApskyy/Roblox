@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About Us - Protecting Children on Roblox</title>
+  <link rel="icon" type="image/png" href="Roblox favicon.png" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .about-content {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 40px 20px;
+      background: rgba(0, 0, 0, 0.7);
+      border-radius: var(--radius-lg);
+      backdrop-filter: blur(10px);
+      box-shadow: var(--shadow);
+      margin-top: 80px;
+      margin-bottom: 80px;
+    }
+    
+    .about-content h1 {
+      font-size: 2.5rem;
+      color: var(--primary);
+      margin-bottom: 30px;
+      text-align: center;
+    }
+    
+    .about-section {
+      margin-bottom: 40px;
+    }
+    
+    .about-section h2 {
+      color: #fff;
+      font-size: 1.8rem;
+      margin-bottom: 15px;
+      border-bottom: 2px solid var(--primary);
+      padding-bottom: 10px;
+      display: inline-block;
+    }
+    
+    .about-section p {
+      color: var(--muted);
+      line-height: 1.8;
+      margin-bottom: 20px;
+      font-size: 1.1rem;
+    }
+    
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+      margin-top: 30px;
+    }
+    
+    .team-member {
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 10px;
+      padding: 25px;
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .team-member:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    }
+    
+    .team-member h3 {
+      color: #fff;
+      margin: 15px 0 5px;
+    }
+    
+    .team-role {
+      color: var(--primary);
+      font-weight: 500;
+      margin-bottom: 15px;
+      display: block;
+    }
+    
+    .back-home {
+      display: inline-block;
+      margin-top: 30px;
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+    
+    .back-home:hover {
+      color: var(--primary-hover);
+      text-decoration: underline;
+    }
+    
+    @media (max-width: 768px) {
+      .about-content {
+        margin: 60px 20px;
+      }
+      
+      .team-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <a href="index.html" class="login-btn">
+      Back to Home
+    </a>
+  </header>
+  
+  <div class="about-content">
+    <h1>About Our Mission</h1>
+    
+    <div class="about-section">
+      <h2>Who We Are</h2>
+      <p>We are a dedicated team of legal professionals, child safety advocates, and technology experts committed to making Roblox a safer space for children. Our mission is to protect young users from online harassment, exploitation, and abuse while holding responsible parties accountable for their actions.</p>
+    </div>
+    
+    <div class="about-section">
+      <h2>Our Story</h2>
+      <p>Founded in response to the growing concerns about children's safety in online gaming environments, our organization was created by parents and legal experts who recognized the need for specialized support in addressing the unique challenges of online child safety. What began as a small advocacy group has grown into a leading voice for child protection in digital spaces.</p>
+    </div>
+    
+    <div class="about-section">
+      <h2>Our Approach</h2>
+      <p>We believe in a multi-faceted approach to online child safety:</p>
+      <ul style="color: var(--muted); line-height: 1.8; margin-left: 20px; margin-bottom: 20px;">
+        <li>Providing legal support to affected families</li>
+        <li>Advocating for stronger safety measures on gaming platforms</li>
+        <li>Educating parents and children about online safety</li>
+        <li>Working with platform developers to implement better protection tools</li>
+      </ul>
+    </div>
+    
+    <div class="about-section">
+      <h2>Our Impact</h2>
+      <p>Since our founding, we've helped over 1,000 families navigate the complexities of online safety and legal protection. Our work has led to significant policy changes on major gaming platforms and has provided critical support to children and families affected by online harassment and exploitation.</p>
+    </div>
+    
+    <a href="index.html" class="back-home">← Back to Homepage</a>
+  </div>
+  
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-links">
+        <a href="about.html" class="footer-link">About Us</a>
+        <a href="parents.html" class="footer-link">Parents</a>
+        <a href="help.html" class="footer-link">Help</a>
+        <a href="terms.html" class="footer-link">Terms & Conditions</a>
+      </div>
+    </div>
+  </footer>
+  
+  <script>
+    // Add smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+          behavior: 'smooth'
+        });
+      });
+    });
+    
+    // Add animation on scroll
+    const observerOptions = {
+      threshold: 0.1
+    };
+    
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = 1;
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, observerOptions);
+    
+    // Animate sections on scroll
+    document.querySelectorAll('.about-section, .team-member').forEach((section, index) => {
+      section.style.opacity = 0;
+      section.style.transform = 'translateY(20px)';
+      section.style.transition = `opacity 0.6s ease ${index * 0.1}s, transform 0.6s ease ${index * 0.1}s`;
+      observer.observe(section);
+    });
+  </script>
+</body>
+</html>

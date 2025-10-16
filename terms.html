@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Terms and Conditions</title>
+  <link rel="icon" type="image/png" href="Roblox favicon.png" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    .title-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+    
+    .close-button {
+      background: #ff4444;
+      border: none;
+      border-radius: 50%;
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      padding: 0;
+      color: white;
+    }
+    
+    .close-button:hover {
+      background: #ff0000;
+      transform: scale(1.1);
+    }
+    
+    .close-button:focus {
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(255, 68, 68, 0.4);
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      line-height: 1.6;
+      color: #ffffff;
+      background: #000000;
+      padding: 0;
+      margin: 0;
+      position: relative;
+      min-height: 100vh;
+    }
+
+    /* Background image with overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('backgroung image.jpeg') no-repeat center / cover fixed;
+      background-attachment: fixed;
+      background-size: cover;
+      background-position: center;
+      z-index: -2;
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+      image-rendering: -webkit-optimize-contrast;
+      image-rendering: crisp-edges;
+    }
+
+    /* Semi-transparent black overlay */
+    body::after {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.7);
+      z-index: -1;
+    }
+
+    .terms-container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 40px 20px;
+      background: rgba(0, 0, 0, 0.85);
+      border-radius: 10px;
+      margin-top: 30px;
+      margin-bottom: 30px;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+      color: #ffffff;
+    }
+
+    .terms-content {
+      padding: 20px;
+      background: rgba(20, 20, 20, 0.6);
+      border-radius: 8px;
+      margin-bottom: 30px;
+      max-height: 70vh;
+      overflow-y: auto;
+    }
+
+    .back-button {
+      display: inline-block;
+      padding: 12px 24px;
+      background: #27ae60;
+      color: white;
+      text-decoration: none;
+      border-radius: 6px;
+      font-weight: 500;
+      transition: background-color 0.2s;
+      border: none;
+      cursor: pointer;
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .back-button:hover {
+      background: #1f8e4e;
+    }
+
+    .button-container {
+      text-align: center;
+      margin-top: 30px;
+    }
+
+    @media (max-width: 768px) {
+      .terms-container {
+        margin: 10px;
+        padding: 20px 10px;
+      }
+      
+      .terms-content {
+        padding: 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="terms-container">
+    <div class="title-container">
+      <h1>Terms and Conditions</h1>
+      <button id="closeButton" class="close-button" aria-label="Close">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+    <div class="terms-content">
+      <h2>Terms & Conditions</h2>
+      <p>By submitting your information through this website, you agree to the following:</p>
+      
+      <h3>1. No Attorney-Client Relationship</h3>
+      <p>Submitting your details does not form an attorney-client relationship with any affiliated law firm.</p>      
+      <h3>2. Free Case Review</h3>
+      <p>Your case review is free. If you qualify, you may be connected with a participating law firm that will explain your legal options.</p>
+      
+      <h3>3. Confidentiality</h3>
+      <p>Your information will be kept secure and confidential, and only shared with trusted partner law firms for the purpose of evaluating your potential claim.</p>
+      
+      <h3>4. No Guarantee of Outcome</h3>
+      <p>Completing this form does not guarantee that you will be eligible for a claim or that compensation will be awarded. Results vary depending on individual circumstances.</p>
+      
+      <h3>5. Marketing Consent</h3>
+      <p>By providing your contact details, you consent to receive communications (phone, SMS, or email) related to your inquiry. You may opt out at any time.</p>
+      
+      <h3>6. For Parents/Guardians Only</h3>
+      <p>This site is intended solely for use by parents or legal guardians. It is not directed to children under 18.</p>
+      
+      <h3>7. Disclaimer</h3>
+      <p>This website and any related community are unofficial and not endorsed, monitored, or run by Roblox Corporation or its staff. Roblox® is a registered trademark of Roblox Corporation.</p>
+
+      <p>We're helping parents protect their children and hold responsible parties accountable. If your child was harassed, exploited, or made unsafe while using Roblox, you may be eligible to take legal action.</p>
+      
+      <h3>Understanding the Issue</h3>
+      <p>Roblox is one of the most popular online games for children. Unfortunately, reports have surfaced of adults using the platform to harass, manipulate, or exploit kids.</p>
+      
+      <p>If your child has experienced:</p>
+      <ul>
+        <li>Inappropriate messages from other players</li>
+        <li>Sexual harassment or grooming attempts</li>
+        <li>Being pressured into sharing private information or photos</li>
+        <li>Any form of online exploitation</li>
+      </ul>
+      <p>...you may be entitled to legal support.</p>
+      
+      <h3>How We Can Help</h3>
+      <p>We work with law firms that specialize in protecting children and families. Our role is to:</p>
+      <ul>
+        <li>Listen to your story confidentially</li>
+        <li>Explain your legal options in clear, simple terms</li>
+        <li>Connect you with experienced attorneys at no upfront cost</li>
+      </ul>
+      <p>Your privacy and your child's well-being are our top priorities.</p>
+      
+      <h3>What to Expect</h3>
+      <ol>
+        <li>Submit your information securely through the form below.</li>
+        <li>Free case review — A legal team will evaluate if you qualify.</li>
+        <li>Take action — If eligible, you'll be connected with a law firm to guide you through next steps.</li>
+      </ol>
+      
+      <h3>Privacy & Support Message</h3>
+      <p>⚠️ We understand this is a deeply sensitive issue. Your information is 100% confidential and will only be shared with trusted attorneys who specialize in child protection cases.</p>
+      
+      <h3 style="margin-top: 30px;"><strong>You are not alone. Support and justice are possible — take the first step today.</strong></h3>
+        © 2025 Roblox Corporation. All rights reserved.
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Handle the close button click
+    document.addEventListener('DOMContentLoaded', function() {
+      const closeButton = document.getElementById('closeButton');
+      
+      if (closeButton) {
+        closeButton.addEventListener('click', function() {
+          // Go back to the previous page (form) while preserving form data
+          if (document.referrer && document.referrer.includes(window.location.hostname)) {
+            window.location.href = document.referrer;
+          } else {
+            // Fallback to index.html if referrer is not available
+            window.location.href = 'index.html';
+          }
+        });
+      }
+      
+      // Handle browser back button
+      window.onpopstate = function() {
+        // This will be triggered when the user clicks the browser's back button
+        window.location.href = 'index.html';
+      };
+      
+      // Add a new history entry when the page loads
+      history.pushState(null, null, window.location.href);
+    });
+  </script>
+</body>
+</html>

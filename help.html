@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Help Center | Roblox Safety</title>
+  <link rel="icon" type="image/png" href="Roblox favicon.png" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .help-container {
+      max-width: 1200px;
+      margin: 80px auto;
+      padding: 0 20px;
+    }
+    
+    .help-header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    
+    .help-header h1 {
+      font-size: 2.5rem;
+      color: var(--primary);
+      margin-bottom: 15px;
+    }
+    
+    .help-search {
+      max-width: 700px;
+      margin: 0 auto 40px;
+      position: relative;
+    }
+    
+    .help-search input {
+      width: 100%;
+      padding: 15px 20px;
+      border: 2px solid var(--primary);
+      border-radius: 30px;
+      background: rgba(255, 255, 255, 0.05);
+      color: white;
+      font-size: 1rem;
+      outline: none;
+      transition: all 0.3s ease;
+    }
+    
+    .help-search input:focus {
+      background: rgba(255, 255, 255, 0.1);
+      box-shadow: 0 0 0 3px rgba(0, 136, 255, 0.3);
+    }
+    
+    .help-categories {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 25px;
+      margin-bottom: 50px;
+    }
+    
+    .category-card {
+      background: rgba(0, 0, 0, 0.7);
+      border-radius: 10px;
+      padding: 25px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      border-left: 4px solid var(--primary);
+      backdrop-filter: blur(10px);
+    }
+    
+    .category-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    }
+    
+    .category-card h2 {
+      color: var(--primary);
+      margin-top: 0;
+      margin-bottom: 15px;
+      font-size: 1.5rem;
+    }
+    
+    .category-links {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    
+    .category-links li {
+      margin-bottom: 10px;
+    }
+    
+    .category-links a {
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.3s ease, padding-left 0.3s ease;
+      display: block;
+      padding: 5px 0;
+    }
+    
+    .category-links a:hover {
+      color: var(--primary);
+      padding-left: 8px;
+    }
+    
+    .popular-articles {
+      margin-top: 50px;
+    }
+    
+    .popular-articles h2 {
+      color: white;
+      font-size: 1.8rem;
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid var(--primary);
+      display: inline-block;
+    }
+    
+    .article-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 20px;
+    }
+    
+    .article-card {
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 8px;
+      padding: 20px;
+      transition: transform 0.3s ease;
+    }
+    
+    .article-card:hover {
+      transform: translateY(-3px);
+      background: rgba(255, 255, 255, 0.1);
+    }
+    
+    .article-card h3 {
+      color: var(--primary);
+      margin-top: 0;
+      margin-bottom: 10px;
+    }
+    
+    .article-card p {
+      color: var(--muted);
+      margin: 0;
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+    
+    .back-home {
+      display: inline-block;
+      margin-top: 40px;
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+    
+    .back-home:hover {
+      color: var(--primary-hover);
+      text-decoration: underline;
+    }
+    
+    @media (max-width: 768px) {
+      .help-container {
+        margin: 60px 20px;
+        padding: 0;
+      }
+      
+      .help-header h1 {
+        font-size: 2rem;
+      }
+      
+      .help-categories, .article-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <a href="index.html" class="login-btn">
+      Back to Home
+    </a>
+  </header>
+  
+  <div class="help-container">
+    <div class="help-header">
+      <h1>How can we help you today?</h1>
+      <p>Search our help articles or browse by category below</p>
+    </div>
+    
+    <div class="help-search">
+      <input type="text" placeholder="Search help articles...">
+    </div>
+    
+    <div class="help-categories">
+      <div class="category-card">
+        <h2>Account Help</h2>
+        <ul class="category-links">
+          <li><a href="#">Account Security</a></li>
+          <li><a href="#">Login & Password Issues</a></li>
+          <li><a href="#">Account Restrictions</a></li>
+          <li><a href="#">Email Verification</a></li>
+          <li><a href="#">Parental Controls</a></li>
+        </ul>
+      </div>
+      
+      <div class="category-card">
+        <h2>Safety & Moderation</h2>
+        <ul class="category-links">
+          <li><a href="#">Reporting Users</a></li>
+          <li><a href="#">Privacy Settings</a></li>
+          <li><a href="#">Chat & Privacy</a></li>
+          <li><a href="#">Content Controls</a></li>
+          <li><a href="#">Parental Controls Guide</a></li>
+        </ul>
+      </div>
+      
+      <div class="category-card">
+        <h2>Billing & Membership</h2>
+        <ul class="category-links">
+          <li><a href="#">Robux & Purchases</a></li>
+          <li><a href="#">Premium Membership</a></li>
+          <li><a href="#">Refund Requests</a></li>
+          <li><a href="#">Payment Methods</a></li>
+          <li><a href="#">Billing History</a></li>
+        </ul>
+      </div>
+    </div>
+    
+    <div class="popular-articles">
+      <h2>Popular Articles</h2>
+      <div class="article-grid">
+        <div class="article-card">
+          <h3>How to Enable Two-Step Verification</h3>
+          <p>Learn how to add an extra layer of security to your Roblox account with two-step verification.</p>
+        </div>
+        
+        <div class="article-card">
+          <h3>Understanding Parental Controls</h3>
+          <p>A comprehensive guide to setting up and managing parental controls for your child's account.</p>
+        </div>
+        
+        <div class="article-card">
+          <h3>Roblox Safety Features</h3>
+          <p>Discover all the safety features available to keep your experience safe and enjoyable.</p>
+        </div>
+      </div>
+    </div>
+    
+    <div class="contact-support" style="margin-top: 40px; padding: 25px; background: rgba(0, 0, 0, 0.7); border-radius: 10px; backdrop-filter: blur(10px);">
+      <h2 style="color: var(--primary); margin-top: 0;">Still need help?</h2>
+      <p style="color: var(--muted); margin-bottom: 20px;">Our support team is available 24/7 to assist you with any issues or questions.</p>
+      <a href="index.html" class="btn primary" style="display: inline-block; padding: 10px 20px; background: var(--primary); color: white; text-decoration: none; border-radius: 5px; transition: background-color 0.3s ease;">Contact Support</a>
+    </div>
+    <a href="index.html" class="back-home">← Back to Homepage</a>
+  </div>
+  
+   <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-links">
+        <a href="about.html" class="footer-link">About Us</a>
+        <a href="parents.html" class="footer-link">Parents</a>
+        <a href="help.html" class="footer-link">Help</a>
+        <a href="terms.html" class="footer-link">Terms & Conditions</a>
+      </div>
+    </div>
+  </footer>
+  
+  <script>
+    // Add smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth'
+          });
+        }
+      });
+    });
+    
+    // Simple search functionality
+    const searchInput = document.querySelector('.help-search input');
+    if (searchInput) {
+      searchInput.addEventListener('keyup', function(e) {
+        if (e.key === 'Enter') {
+          // In a real implementation, this would trigger a search
+          alert('Search functionality would show results for: ' + this.value);
+        }
+      });
+    }
+    
+    // Add animation on scroll
+    const animateOnScroll = () => {
+      const elements = document.querySelectorAll('.category-card, .article-card');
+      elements.forEach((element, index) => {
+        const elementTop = element.getBoundingClientRect().top;
+        const windowHeight = window.innerHeight;
+        
+        if (elementTop < windowHeight - 50) {
+          setTimeout(() => {
+            element.style.opacity = '1';
+            element.style.transform = 'translateY(0)';
+          }, 100 * index);
+        }
+      });
+    };
+    
+    // Initialize animations
+    document.addEventListener('DOMContentLoaded', () => {
+      // Set initial state for animations
+      const animatedElements = document.querySelectorAll('.category-card, .article-card');
+      animatedElements.forEach(element => {
+        element.style.opacity = '0';
+        element.style.transform = 'translateY(20px)';
+        element.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+      });
+      
+      // Run once on load
+      animateOnScroll();
+      
+      // Run on scroll
+      window.addEventListener('scroll', animateOnScroll);
+    });
+  </script>
+</body>
+</html>
