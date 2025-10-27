@@ -251,24 +251,15 @@ document.addEventListener('DOMContentLoaded', function() {
                 const result = await response.json();
 
                 if (result.success) {
+                    // Update counter
                     const currentCounter = parseInt(localStorage.getItem('parentCounter')) || 1047;
                     counter = Math.max(currentCounter + 1, counter);
                     localStorage.setItem('parentCounter', counter);
                     updateCounter(counter);
-
-                    this.style.display = 'none';
-                    successMessage.style.display = 'flex';
-                    successMessage.classList.add('show');
-
+                    
+                    // Reset form and redirect immediately to thank you page
                     this.reset();
-
-                    setTimeout(() => {
-                        successMessage.classList.remove('show');
-                        setTimeout(() => {
-                            this.style.display = 'block';
-                            successMessage.style.display = 'none';
-                        }, 500);
-                    }, 5000);
+                    window.location.href = 'thankyou.html';
                 } else {
                     alert(result.message || 'Form submission failed. Please try again.');
                 }
